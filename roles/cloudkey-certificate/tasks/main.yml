@@ -1,0 +1,67 @@
+---
+- name: Backup /etc/ssl/private
+  shell: |
+    tar zcf backup.$(date +%s).tar.gz private
+  args:
+    chdir: /etc/ssl
+
+- name: Copy certificate
+  copy:
+    src: "{{ crt_pem }}"
+    dest: /etc/ssl/private/cloudkey.crt
+    mode: '0644'
+    owner: root
+    group: ssl-cert
+
+- name: Copy key
+  copy:
+    src: "{{ key_pem }}"
+    dest: /etc/ssl/private/cloudkey.key
+    mode: '0640'
+    owner: root
+    group: ssl-cert
+
+- name: Build Java keystore (in PKCS12 format)
+  shell: |
+    umask 0077
+    openssl pkcs12 -export -nodes -in cloudkey.crt -inkey cloudkey.key -out unifi.keystore.jks -name unifi -passout "pass:{{ storepass }}"
+  args:
+    chdir: /etc/ssl/private
+
+- name: Permissions for Java keystore
+  file:
+    path: /etc/ssl/private/unifi.keystore.jks
+    owner: root
+    group: ssl-cert
+    mode: '0640'
+
+- name: Create md5 companion file for Java keystore
+  shell: |
+    umask 0022
+    md5sum unifi.keystore.jks > unifi.keystore.jks.md5
+  args:
+    chdir: /etc/ssl/private
+
+- name: Backup /data/unifi-core/config
+  shell: |
+    tar zcvf backup.$(date +%s).tar.gz unifi-core.crt unifi-core.key
+  args:
+    chdir: /data/unifi-core/config
+
+- name: Copy certificate to unifi core
+  copy:
+    src: "{{ crt_pem }}"
+    dest: /data/unifi-core/config/unifi-core.crt
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy key to unifi core
+  copy:
+    src: "{{ key_pem }}"
+    dest: /data/unifi-core/config/unifi-core.key
+    owner: root
+    group: root
+    mode: '0644'
+
+# vim: filetype=yaml

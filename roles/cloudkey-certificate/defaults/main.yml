@@ -1,0 +1,4 @@
+---
+key_pem: "cloudkey.key"
+crt_pem: "cloudkey.crt"
+storepass: "aircontrolenterprise"

@@ -1,0 +1,12 @@
+#!/usr/bin/env -S ansible-playbook -i inventory.yml
+---
+- hosts: cloudkey
+  remote_user: root
+  gather_facts: false
+  roles:
+    - name: cloudkey-certificate
+      vars:
+        crt_pem: cloudkey.crt.pem
+        key_pem: cloudkey.key.pem
+
+# vim: filetype=yaml

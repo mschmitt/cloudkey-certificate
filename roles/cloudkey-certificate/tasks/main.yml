@@ -44,7 +44,7 @@
 
 - name: Backup /data/unifi-core/config
   shell: |
-    tar zcvf backup.$(date +%s).tar.gz unifi-core.crt unifi-core.key
+    tar zcf backup.$(date +%s).tar.gz unifi-core.crt unifi-core.key
   args:
     chdir: /data/unifi-core/config
 

@@ -8,4 +8,4 @@ SSH needs to be enabled from the cloudkey's top-level advanced settings. Deployi
 
 Intermediate certificates were loosely tested and should work if appended to the certificate file.
 
-For administrators with a bit of experience in managing certificates, the process appears to be a lot less error-prone than the extremely detailed HOWTOs make it seem. It is, however, tragically ridiculous how the files in `/etc/ssl/private` have carefully crafted permissions and the "v2" certificates in `/data/unifi-core/config` then frivolously changed to `chmod 0644`. Welcome to the Unifi ecosystem.
+For administrators with a bit of experience in managing certificates, the process appears to be a lot less error-prone than the extremely detailed HOWTOs make it seem. It is, however, tragically ridiculous how the files in `/etc/ssl/private` have carefully crafted permissions and the "v2" files in `/data/unifi-core/config` then frivolously changed to `chmod 0644`. Welcome to the Unifi ecosystem.

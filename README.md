@@ -15,11 +15,11 @@ Intermediate certificates were loosely tested and should work if appended to the
 * My certificate disappeared without a trace during a reboot one week before(!) its expiration and was replaced with a newly created self-signed snake-oil cert. 
   * After the not-yet expired certificate was re-deployed using this playbook, it disappeared after another reboot, replaced with yet another newly generated snake-oil cert.
   * No further automatic replacement occurred after deploying a new certificate.
-  * TODO (Later/Maybe): Investigate which service initiates early certificate replacements.
+  * This replacement is initiated from within the core node app */usr/share/unifi-core/app/service.js*. A permanent workaround should probably move towards dedicated certificate names and override things in or around nginx's */data/unifi-core/config/http/local-certs.conf*.
 
 ## Troubleshooting notes
 
-I believe the keystore in /etc/ssl/private is not used anymore. However:
+I believe the keystore in */etc/ssl/private* is not used anymore. However:
 
 ```
 openssl pkcs12 -in /etc/ssl/private/unifi.keystore.jks -passin pass:aircontrolenterprise -nokeys

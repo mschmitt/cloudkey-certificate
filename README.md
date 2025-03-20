@@ -25,3 +25,7 @@ I believe the keystore in */etc/ssl/private* is not used anymore. However:
 openssl pkcs12 -in /etc/ssl/private/unifi.keystore.jks -passin pass:aircontrolenterprise -nokeys
 openssl x509 -in /data/unifi-core/config/unifi-core.crt -noout -subject -issuer
 ```
+
+## Status
+
+* Confirmed still working on 2025-03-20
